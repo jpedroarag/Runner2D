@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top-Down Runner</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: white;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    canvas {
+      width: 100vh;
+      height: 100vh;
+      padding: 0;
+      margin: auto;
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="gameCanvas" width="1200" height="1200"></canvas>
+
+  <script src = "../Rect.js"></script>
+  <script src = "../Movable/Player.js"></script>
+  <script src = "../Movable/Enemy.js"></script>
+  <script src = "../Manager/EnemyManager.js"></script>
+  <script src = "World.js"></script>
+  <script src = "../Utils.js"></script>
+  <script src = "../Reactive/Observer.js"></script>
+  <script src = "../Reactive/Subject.js"></script>
+
+  <script>
+    let canvas;
+    let context;
+    let world;
+
+    window.onload = function() {
+      canvas = document.getElementById('gameCanvas');
+      context = canvas.getContext('2d');
+      world = new World(canvas, context);
+      requestAnimationFrame(draw);
+      canvas.addEventListener('mousemove', onMouseMove);
+    }
+
+    function draw(timeStamp) {
+      world.mainLoop(timeStamp, () => requestAnimationFrame(draw));
+    }
+
+    function onMouseMove(event) {
+      world.player.onMouseMove(event);
+    }
+  </script>
+</body>
+</html>
