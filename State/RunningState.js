@@ -90,9 +90,10 @@ class RunningState extends GameState {
         });
         super.update(deltaTime);
 
-        this.enemyGenerator
-            .generateNewEnemyLine(deltaTime, this.enemies, this.level)
-            .forEach((e) => this.enemies.push(e));
+        let newEnemy = this.enemyGenerator.generateNewEnemy(deltaTime, this.enemies, this.level);
+        if (newEnemy != null) {
+            this.enemies.push(newEnemy);
+        }
 
         this.#checkCollisionWithPlayer();
         this.#updateLevelIfNeeded();

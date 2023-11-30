@@ -13,13 +13,13 @@ class EnemyGenerator {
         this.maxEnemySize = Size.square(canvas.width/10);
     }
 
-    generateNewEnemyLine(deltaTime, allEnemies, level) {
+    generateNewEnemy(deltaTime, allEnemies, level) {
         let fixedRangeLevel = Range.limitedValue(this.minLevel, this.maxLevel, level);
         let timeOffsetSinceLastUpdateMs = Math.abs(Date.now() - this.lastEnemySpawn);
         let shouldGenerateNew = timeOffsetSinceLastUpdateMs > 100 * deltaTime/fixedRangeLevel;
 
         if (!shouldGenerateNew) {
-            return [];
+            return null;
         }
 
         this.lastEnemySpawn = Date.now();
@@ -31,8 +31,6 @@ class EnemyGenerator {
     }
 
     #generate(level, allEnemies) {
-        let enemies = [];
-
         let enemy = this.#generateEnemy(level);
 
         while (!this.#isPositionValid(enemy, allEnemies)) {
@@ -40,15 +38,10 @@ class EnemyGenerator {
                 enemy = null;
                 break;
             }
-            // enemy = this.#generateEnemy(level);
             enemy.position.y -= (this.minMargins.height + this.maxEnemySize.height);
         }
 
-        if (enemy != null) {
-            enemies.push(enemy);
-        }
-
-        return enemies;
+        return enemy;
     }
 
     #generateEnemy(level) {
