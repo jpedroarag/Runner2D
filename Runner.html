@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background-color: white;
+      background-color: black;
       width: 100vw;
       height: 100vh;
     }
@@ -28,35 +28,34 @@
 </head>
 <body>
   <canvas id="gameCanvas" width="1200" height="1200"></canvas>
-
-  <script src = "../Rect.js"></script>
-  <script src = "../Movable/Player.js"></script>
-  <script src = "../Movable/Enemy.js"></script>
-  <script src = "../Manager/EnemyManager.js"></script>
-  <script src = "World.js"></script>
-  <script src = "../Utils.js"></script>
-  <script src = "../Reactive/Observer.js"></script>
-  <script src = "../Reactive/Subject.js"></script>
-
+  <script src = "Visual/View.js"></script>
+  <script src = "Visual/Label.js"></script>
+  <script src = "Visual/Rect.js"></script>
+  <script src = "Visual/Scoreboard.js"></script>
+  <script src = "Visual/Player.js"></script>
+  <script src = "Visual/Enemy.js"></script>
+  <script src = "Generator/EnemyGenerator.js"></script>
+  <script src = "State/GameState.js"></script>
+  <script src = "State/RunningState.js"></script>
+  <script src = "State/GameLoop.js"></script>
+  <script src = "State/EndOfGameState.js"></script>
+  <script src = "Utils.js"></script>
+  <script src = "Reactive/Observer.js"></script>
+  <script src = "Reactive/Subject.js"></script>
   <script>
     let canvas;
     let context;
-    let world;
+    let gameLoop;
 
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
       context = canvas.getContext('2d');
-      world = new World(canvas, context);
+      gameLoop = new GameLoop();
       requestAnimationFrame(draw);
-      canvas.addEventListener('mousemove', onMouseMove);
     }
 
     function draw(timeStamp) {
-      world.mainLoop(timeStamp, () => requestAnimationFrame(draw));
-    }
-
-    function onMouseMove(event) {
-      world.player.onMouseMove(event);
+      gameLoop.mainLoop(timeStamp, () => requestAnimationFrame(draw));
     }
   </script>
 </body>

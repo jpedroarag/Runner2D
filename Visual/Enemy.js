@@ -1,17 +1,11 @@
 class Enemy extends Rect {
     constructor(
-        context,
         position,
         size,
-        color = 'white',
+        color,
         speed
     ) {
-        super(
-            context,
-            position,
-            size,
-            color
-        );
+        super(position, size, color);
         this.speed = speed;
     }
 

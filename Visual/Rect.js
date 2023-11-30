@@ -1,5 +1,6 @@
-class Rect {
-    constructor(context, position, size, color = 'white') {
+class Rect extends View {
+    constructor(position, size, color = 'white') {
+        super();
         this.context = context;
         this.position = position;
         this.size = size;
@@ -15,8 +16,6 @@ class Rect {
             this.size.height
         );
     }
-
-    update() {}
 
     hasCollisionWith(another, marginToConsider = new Size(0, 0)) {
         let collisionX = this.position.x < another.position.x + another.size.width + marginToConsider.width &&

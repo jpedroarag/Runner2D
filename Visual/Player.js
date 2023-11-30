@@ -1,26 +1,12 @@
 class Player extends Rect {
     constructor(
-        canvas,
-        context,
         position,
         size,
         color = 'white',
     ) {
-        super(
-            context,
-            position,
-            size,
-            color,
-        );
+        super(position, size, color);
         this.canvas = canvas;
-        this.collisionSubject = new Subject();
-    }
-
-    checkCollision(enemies) {
-        return enemies.reduce(
-            (hasCollision, enemy) => hasCollision || enemy.hasCollisionWith(this),
-            false
-        );
+        this.canvas.addEventListener('mousemove', (e) => this.onMouseMove(e));
     }
 
     onMouseMove(event) {
@@ -43,25 +29,7 @@ class Player extends Rect {
         let newX = mousePercentage.x * canvasHorizontalBounds.upperBound - this.size.width/3;
         let newY = mousePercentage.y * canvasVerticalBounds.upperBound - this.size.height/3;
 
-        this.position.x = Range.limited(0, this.canvas.width - this.size.width, newX);
-        this.position.y = Range.limited(0, this.canvas.height - this.size.height, newY);
+        this.position.x = Range.limitedValue(0, this.canvas.width - this.size.width, newX);
+        this.position.y = Range.limitedValue(0, this.canvas.height - this.size.height, newY);
     }
 }
-
-const asyncUppercase = item =>
-    new Promise(resolve =>
-        setTimeout(
-            () => resolve(item.toUpperCase()),
-            Math.floor(Math.random() * 0.1)
-        )
-    );
-
-const uppercaseItems = async () => {
-    const items = ['a', 'b', 'c'];
-    for (let item of items) {
-        const uppercaseItem = await asyncUppercase(item);
-        console.log(uppercaseItem);
-    }
-
-    console.log('Items processed');
-};

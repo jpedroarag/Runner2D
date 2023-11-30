@@ -26,7 +26,9 @@ class Position {
         return new Position(point, point);
     }
 
-    static zero = this.single(0);
+    static zero() {
+        return this.single(0);
+    }
 }
 
 class Size {
@@ -39,6 +41,10 @@ class Size {
     static square(size) {
         return new Size(size, size);
     }
+
+    static canvas() {
+        return new Size(canvas.width, canvas.height);
+    }
 }
 
 class Range {
@@ -47,7 +53,7 @@ class Range {
         this.upperBound = upperBound;
     }
 
-    static limited(lowerBound, upperBound, value) {
+    static limitedValue(lowerBound, upperBound, value) {
         return Math.max(lowerBound, Math.min(value, upperBound));
     }
 }

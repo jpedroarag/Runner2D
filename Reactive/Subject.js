@@ -7,7 +7,7 @@ class Subject {
         this.observers.push(observer);
     }
 
-    notify(event = -1) {
+    notify(event) {
         this.observers.forEach((o) => o.onNotify(event));
     }
 }
