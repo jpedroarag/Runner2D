@@ -4,7 +4,7 @@ class EnemyGenerator {
 
         this.minLevel = 1;
         this.maxLevel = 100;
-        this.maxSpeed = 10/7.5;
+        this.maxSpeed = 5/7.5;
 
         this.maxPositionUp = -canvas.height;
         this.minMargins = minMargins;
